@@ -1,4 +1,5 @@
 <h3>Welcome, {{user.username}}!</h3>
+{% if tasks %}
 <h4>Here is your To Do List:</h4>
 
 <ul>
@@ -8,12 +9,12 @@
         {% if task.configurable.configurable_type %}
         <p>{{task.configurable.configurable_type|capfirst}}: {{task.configurable.configurable_value}}</p>
         {% endif %}    
-
+        
     </li>    
     {% endfor %}
 </ul>
 
-{% if not tasks %}
+{% else %}
     <div >
         No tasks have been made yet, click below to get started!
     </div>
@@ -23,10 +24,8 @@
     <a href={% url 'create_task' %}>Create a New Task</a>
 </div>
 
-
-
 <div style="padding:1em 0em;">
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button style="background:none;border:none;cursor: pointer;color:blue;text-decoration:underline;"type="submit" >Logout</button>
     </form>

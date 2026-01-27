@@ -25,11 +25,3 @@ class CreateTaskView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
-
-
-# Use Js to explain the inupt type
-# dispay data type and value on same line
-
-# User can move fileds around
-
