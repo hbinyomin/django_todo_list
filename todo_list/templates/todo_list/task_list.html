@@ -4,8 +4,11 @@
 <ul>
     {% for task in tasks %}
     <li>
-        {{task.title}}:
-        {{task.description}}
+        <p> {{task.title}}: {{task.description}}</p>
+        {% if task.configurable.configurable_type %}
+        <p>{{task.configurable.configurable_type|capfirst}}: {{task.configurable.configurable_value}}</p>
+        {% endif %}    
+
     </li>    
     {% endfor %}
 </ul>

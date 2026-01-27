@@ -27,10 +27,9 @@ class CreateTaskView(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-# Authentication, sign-in required
 
-# Each to-do item must include a configurable field that supports three data types (for example: string, boolean, and number)
+# Use Js to explain the inupt type
+# dispay data type and value on same line
 
-# Each data type must have appropriate validation, Validation should be enforced on both the frontend and backend
+# User can move fileds around
 
-# Submitted to-do items should be saved persistently and retrievable after refresh/login
