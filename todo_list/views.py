@@ -1,24 +1,26 @@
-from django.views.generic import ListView,CreateView
+from django.views.generic import ListView,CreateView,TemplateView
 
 from .forms import TaskForm
 from .models import Task
 from django.urls import reverse_lazy
+# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
+class LoginView(TemplateView):
+    template_name='todo_list/login.html'
 
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin,ListView):
     template_name = "todo_list/task_list.html"
     model = Task
     context_object_name="tasks"
 
-class CreateTaskView(CreateView):
+class CreateTaskView(LoginRequiredMixin,CreateView):
     model=Task
     # fields=['title','description']
     form_class=TaskForm
     template_name="todo_list/create_task.html"
     success_url=reverse_lazy('task_list')
 
-#
 
 # Authentication, sign-in required
 
