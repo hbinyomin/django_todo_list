@@ -25,3 +25,29 @@ class CreateTaskView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_form(self,form_class=None):
+        form = super().get_form(form_class)
+
+        order = self.request.GET.get("order") or self.request.session.get("field_order", "default")
+
+        self.request.session["field_order"] = order
+
+        if order == 'description':
+            form.order_fields([
+                "description",
+                "title",
+                "configurable_type",
+                "configurable_value",  
+            ])
+        else:
+            form.order_fields([
+                "title",
+                "description",
+                "configurable_type",
+                "configurable_value",  
+            ])
+
+        return form
+
+

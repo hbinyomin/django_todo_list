@@ -1,8 +1,7 @@
-<h2>Create a New Task</h2>
+<h3>Create a New Task</h3>
 
 <form method="post" novalidate>
 {% csrf_token %}
-  {% comment %} {{form.as_p}} {% endcomment %}
   {% for field in form  %}
       {% if field.name not in "configurable_type configurable_value" %}
           <div>
@@ -16,15 +15,16 @@
       {% endif %}
   {% endfor %}
 
-  <div>
 
-    {% for error in form.configurable_type.errors %}
-      <p style="color:red">{{ error }}</p>
-    {% endfor %}
-    {% for error in form.configurable_value.errors %}
-      <p style="color:red">{{ error }}</p>
-    {% endfor %}
-  </div>
+  {% comment %} Configurable Field {% endcomment %}
+    <div>
+        {% for error in form.configurable_type.errors %}
+          <p style="color:red">{{ error }}</p>
+        {% endfor %}
+        {% for error in form.configurable_value.errors %}
+          <p style="color:red">{{ error }}</p>
+        {% endfor %}
+    </div>
     <div style="display:flex; gap:8px">
         {{ form.configurable_type.label_tag }} {{ form.configurable_type }}
         
@@ -33,3 +33,7 @@
 
   <button type="submit" style="margin:1em 0em;">Create Task</button>
 </form>
+
+<b>Order Form Fields:<b>
+<a href="?order=title">Title First</a> |
+<a href="?order=description">Description First</a>
