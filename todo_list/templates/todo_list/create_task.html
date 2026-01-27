@@ -1,6 +1,6 @@
 <h3>Create a New Task</h3>
 
-<form method="post" novalidate>
+<form method="post">
 {% csrf_token %}
   {% for field in form  %}
       {% if field.name not in "configurable_type configurable_value" %}

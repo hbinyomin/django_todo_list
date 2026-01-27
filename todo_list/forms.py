@@ -26,7 +26,7 @@ class TaskForm(forms.ModelForm):
         configurable_value = cleaned_data.get('configurable_value')
 
         if configurable_type=='string':
-            # This could have been acheived via required=True on the field, but used this way for clarity. Both would result in double error messages.
+            # This validation could have been acheived via required=True on the field, but used this way for clarity. Both would result in double error messages.
             # Char field strips whitespace, so not needed here
             if not configurable_value:
                 self.add_error("configurable_value","Some value is required")
