@@ -2,6 +2,34 @@
 
 <form method="post" novalidate>
 {% csrf_token %}
-  {{form.as_p}}
-  <button type="submit">Create Task</button>
+  {% comment %} {{form.as_p}} {% endcomment %}
+  {% for field in form  %}
+      {% if field.name not in "configurable_type configurable_value" %}
+          <div>
+            {% for error in field.errors %}
+              <p style="color:red">{{ error }}</p>
+            {% endfor %}
+            <p>
+              {{ field.label_tag }} {{ field }}
+            </p>
+          </div>
+      {% endif %}
+  {% endfor %}
+
+  <div>
+
+    {% for error in form.configurable_type.errors %}
+      <p style="color:red">{{ error }}</p>
+    {% endfor %}
+    {% for error in form.configurable_value.errors %}
+      <p style="color:red">{{ error }}</p>
+    {% endfor %}
+  </div>
+    <div style="display:flex; gap:8px">
+        {{ form.configurable_type.label_tag }} {{ form.configurable_type }}
+        
+        {{ form.configurable_value.label_tag }} {{ form.configurable_value }}
+      </div>
+
+  <button type="submit" style="margin:1em 0em;">Create Task</button>
 </form>
