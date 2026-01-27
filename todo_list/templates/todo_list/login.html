@@ -1,9 +1,8 @@
-<h2>Login Page</h2>
+<h2>Welcome to the Login Page</h2>
+<h4>Please enter your credentials</h4>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
-    {% comment %} <input type="hidden" name="next" value="{{ next }}" {% endcomment %}
-    >
 </form>

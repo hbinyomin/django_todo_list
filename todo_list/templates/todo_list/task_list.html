@@ -1,5 +1,6 @@
-<h2>To Do List</h2>
-{% comment %} {{request.user}} {% endcomment %}
+<h3>Welcome, {{user.username}}!</h3>
+<h4>Here is your To Do List:</h4>
+
 <ul>
     {% for task in tasks %}
     <li>
@@ -10,16 +11,18 @@
 </ul>
 
 {% if not tasks %}
-    No tasks here
+    <div >
+        No tasks have been made yet, click below to get started!
+    </div>
 {% endif %}
 
-<div >
+<div style="padding:1em 0em;" >
     <a href={% url 'create_task' %}>Create a New Task</a>
 </div>
 
 
 
-<div style="padding:2em 0em;">
+<div style="padding:1em 0em;">
     <form method="post" action="{% url 'logout' %}" style="display:inline;">
         {% csrf_token %}
         <button style="background:none;border:none;cursor: pointer;color:blue;text-decoration:underline;"type="submit" >Logout</button>

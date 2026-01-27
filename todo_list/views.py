@@ -3,7 +3,6 @@ from django.views.generic import ListView,CreateView,TemplateView
 from .forms import TaskForm
 from .models import Task
 from django.urls import reverse_lazy
-# from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoginView(TemplateView):
@@ -14,12 +13,18 @@ class TaskListView(LoginRequiredMixin,ListView):
     model = Task
     context_object_name="tasks"
 
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
 class CreateTaskView(LoginRequiredMixin,CreateView):
     model=Task
-    # fields=['title','description']
     form_class=TaskForm
     template_name="todo_list/create_task.html"
     success_url=reverse_lazy('task_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 # Authentication, sign-in required
@@ -29,7 +34,3 @@ class CreateTaskView(LoginRequiredMixin,CreateView):
 # Each data type must have appropriate validation, Validation should be enforced on both the frontend and backend
 
 # Submitted to-do items should be saved persistently and retrievable after refresh/login
-
-
-# butto for Create New item
-# form for creating new item
