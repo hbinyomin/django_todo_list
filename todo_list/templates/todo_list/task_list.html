@@ -1,0 +1,13 @@
+
+
+{% for task in tasks %}
+<ul>
+    <li>{{task.title}}:
+        {{task.description}}
+    </li>    
+</ul>
+{% endfor %}
+
+{% if not tasks %}
+    No tasks here
+{% endif %}
