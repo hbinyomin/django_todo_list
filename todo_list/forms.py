@@ -30,6 +30,8 @@ class TaskForm(forms.ModelForm):
             # Char field strips whitespace, so not needed here
             if not configurable_value:
                 self.add_error("configurable_value","Some value is required")
+            if not re.search(r"[A-Za-z]", configurable_value):
+                self.add_error("configurable_value","Please enter a string with characters")
             else:
                 cleaned_data['configurable_value']=str(configurable_value)
             
