@@ -27,7 +27,7 @@ class TaskForm(forms.ModelForm):
 
         if configurable_type=='string':
             # This validation could have been acheived via required=True on the field, but used this way for clarity. Both would result in double error messages.
-            # Char field strips whitespace, so not needed here
+            # CharField strips whitespace, so stripping whitespace not needed here to prevent "  " being saved, even without the regex below.
             if not configurable_value:
                 self.add_error("configurable_value","Some value is required")
             if not re.search(r"[A-Za-z]", configurable_value):
@@ -39,7 +39,7 @@ class TaskForm(forms.ModelForm):
             try:
                 cleaned_data["configurable_value"] = float(configurable_value)
             except (ValueError,TypeError):
-                # TypeError is needed for Null; charfield should prevent, but extra level of secuirty
+                # TypeError is needed for Null; CharField should prevent, but extra level of secuirty
                 self.add_error("configurable_value","A valid number is required")
         
         elif configurable_type=="boolean":
@@ -53,7 +53,7 @@ class TaskForm(forms.ModelForm):
         return cleaned_data
     
     def clean_title(self):
-        title = self.cleaned_data["title"].strip()
+        title = self.cleaned_data["title"]
 
         # Check for at least one character
         if not re.search(r"[A-Za-z]", title):
@@ -63,7 +63,7 @@ class TaskForm(forms.ModelForm):
         return title
     
     def clean_description(self):
-        description = self.cleaned_data["description"].strip()
+        description = self.cleaned_data["description"]
 
         # Check for at least one character
         if not re.search(r"[A-Za-z]", description):

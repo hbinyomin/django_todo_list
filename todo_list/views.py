@@ -20,6 +20,7 @@ class CreateTaskView(LoginRequiredMixin,CreateView):
     model=Task
     form_class=TaskForm
     template_name="todo_list/create_task.html"
+    # reverse_lazy prevents circular imports
     success_url=reverse_lazy('task_list')
 
     def form_valid(self, form):
