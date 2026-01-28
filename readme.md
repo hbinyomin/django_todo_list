@@ -38,7 +38,7 @@ python manage.py migrate
 
 - This command assumes that you have no existing users with username 'ruvain' or 'chaim'
 ```
-python manage.py populate_db
+python manage.py populate_user
 ```
 
 
